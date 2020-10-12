@@ -13,7 +13,7 @@ import scala.concurrent.Future
 class EmailController @Inject()(val email: EmailService, val controllerComponents: ControllerComponents) extends BaseController {
   def findUniqueEmail:Action[AnyContent] = Action.async { implicit request =>
 
-    val resultEmail = request.body.asJson match {
+    val parseJson = request.body.asJson match {
       case Some(json) =>
         try {
           (json \ "emails").as[List[String]]
@@ -25,12 +25,12 @@ class EmailController @Inject()(val email: EmailService, val controllerComponent
 
       case None => List.empty[String]
     }
-    resultEmail match {
+    parseJson match {
       case Nil => Future(BadRequest("Json value emails does not exists"))
       case _ =>
-        val result = email.countUniqueEmails(resultEmail)
-        result.map(x =>
-          Ok(x.toString)
+        val result = email.countUniqueEmails(parseJson)
+        result.map( result =>
+          Ok(result.toString)
         )
     }
   }
