@@ -1,8 +1,8 @@
 # fetchrewards
 Checkout repository <br>
-Requires scala and sbt 
-Run sbt to compile and pull dependencies 
-Post json to endpoint: http://localhost:9000/api/email
+Requires scala and sbt   <br>
+Run sbt to compile and pull dependencies  <br>
+Post json to endpoint: http://localhost:9000/api/email  <br>
 Expected json format:
 ```
 {
